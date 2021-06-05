@@ -58,6 +58,11 @@ def pour_juice():
     print('Pouring orange juice')
 
 
+async def ponder(minutes: int):
+    await asyncio.sleep(minutes)
+    print('Yawing...')
+
+
 async def breakfast():
     pour_coffee()
     print("coffee is ready")
@@ -65,6 +70,8 @@ async def breakfast():
     egg_task = asyncio.create_task(fry_eggs(2))
 
     bacon_task = asyncio.create_task(fry_bacon(3))
+
+    await ponder(0)  # a way to start some tasks, see https://github.com/python/asyncio/issues/284
 
     toast = Bread(2)
     toast_task = asyncio.create_task(toast.make_toast())
