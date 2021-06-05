@@ -13,6 +13,7 @@ async def fry_eggs(how_many: int):
     print('cooking the eggs ...')
     await asyncio.sleep(3)
     print('Put eggs on plate')
+    return 'eggs'
 
 
 async def fry_bacon(slices: int):
@@ -24,6 +25,7 @@ async def fry_bacon(slices: int):
     print('cooking the second side of bacon...')
     await asyncio.sleep(3)
     print('Put bacon on plate')
+    return 'bacon'
 
 
 class Bread:
@@ -49,6 +51,7 @@ class Bread:
         await self.toast()
         self.apply_butter()
         self.apply_jam()
+        return 'toast'
 
 
 def pour_juice():
@@ -70,10 +73,14 @@ async def breakfast():
     print('juice is ready')
 
     all_tasks = [egg_task, bacon_task, toast_task]
-    await asyncio.gather(*all_tasks)
-    print('eggs are ready')
-    print('bacon is ready')
-    print('toast is ready')
+    for task in asyncio.tasks.as_completed(all_tasks):
+        earliest_result = await task
+        if earliest_result == "eggs":
+            print('eggs are ready')
+        elif earliest_result == "bacon":
+            print('bacon is ready')
+        elif earliest_result == "toast":
+            print('toast is ready')
 
     print('Breakfast is ready')
 
