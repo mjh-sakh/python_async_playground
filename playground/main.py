@@ -43,6 +43,11 @@ class Bread:
     def apply_jam(self):
         print('Putting jam on the toast')
 
+    async def make_toast(self):
+        await self.toast()
+        self.apply_butter()
+        self.apply_jam()
+
 
 def pour_juice():
     print('Pouring orange juice')
@@ -57,11 +62,7 @@ async def breakfast():
     bacon_task = asyncio.create_task(fry_bacon(3))
 
     toast = Bread(2)
-    toast_task = toast.toast()
-    await toast_task
-    toast.apply_butter()
-    toast.apply_jam()
-    print('toast is ready')
+    toast_task = asyncio.create_task(toast.make_toast())
 
     pour_juice()
     print('juice is ready')
@@ -71,6 +72,9 @@ async def breakfast():
 
     await bacon_task
     print('bacon is ready')
+
+    await toast_task
+    print('toast is ready')
 
     print('Breakfast is ready')
 
