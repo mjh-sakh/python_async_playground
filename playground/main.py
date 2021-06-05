@@ -35,6 +35,8 @@ class Bread:
             print('Putting a slice of bread in the toaster')
         print('Start toasting...')
         await asyncio.sleep(3)
+        print('Fire! Toast is ruined')
+        raise Exception('The toaster is on fire')
         print('Remove toast from toaster')
 
     def apply_butter(self):
