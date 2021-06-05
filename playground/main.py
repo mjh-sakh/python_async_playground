@@ -52,13 +52,9 @@ async def breakfast():
     pour_coffee()
     print("coffee is ready")
 
-    egg_task = fry_eggs(2)
-    await egg_task
-    print('eggs are ready')
+    egg_task = asyncio.create_task(fry_eggs(2))
 
-    bacon_task =  fry_bacon(3)
-    await bacon_task
-    print('bacon is ready')
+    bacon_task = asyncio.create_task(fry_bacon(3))
 
     toast = Bread(2)
     toast_task = toast.toast()
@@ -69,6 +65,12 @@ async def breakfast():
 
     pour_juice()
     print('juice is ready')
+
+    await egg_task
+    print('eggs are ready')
+
+    await bacon_task
+    print('bacon is ready')
 
     print('Breakfast is ready')
 
