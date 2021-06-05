@@ -35,8 +35,8 @@ class Bread:
             print('Putting a slice of bread in the toaster')
         print('Start toasting...')
         await asyncio.sleep(3)
-        print('Fire! Toast is ruined')
-        raise Exception('The toaster is on fire')
+        # print('Fire! Toast is ruined')
+        # raise Exception('The toaster is on fire')
         print('Remove toast from toaster')
 
     def apply_butter(self):
@@ -69,13 +69,10 @@ async def breakfast():
     pour_juice()
     print('juice is ready')
 
-    await egg_task
+    all_tasks = [egg_task, bacon_task, toast_task]
+    await asyncio.gather(*all_tasks)
     print('eggs are ready')
-
-    await bacon_task
     print('bacon is ready')
-
-    await toast_task
     print('toast is ready')
 
     print('Breakfast is ready')
