@@ -23,7 +23,7 @@ async def fry_bacon(slices: int):
     for _ in range(slices):
         print('flipping a slice of bacon')
     print('cooking the second side of bacon...')
-    await asyncio.sleep(3)
+    await asyncio.sleep(4)
     print('Put bacon on plate')
     return 'bacon'
 
@@ -86,7 +86,7 @@ async def breakfast():
 
 
 if __name__ == "__main__":
-    print("Coocking started.")
+    print("Cooking started.")
     start_time = monotonic()
     # two_breakfasts = asyncio.gather(breakfast(), breakfast())
     loop = asyncio.get_event_loop()
