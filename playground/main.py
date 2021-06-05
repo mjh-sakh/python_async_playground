@@ -1,27 +1,28 @@
-from time import sleep, monotonic
+import asyncio
+from time import monotonic
 
 
 def pour_coffee():
     print('Pouring coffee')
 
 
-def fry_eggs(how_many: int):
+async def fry_eggs(how_many: int):
     print('Warming the egg pan...')
-    sleep(3)
+    await asyncio.sleep(3)
     print(f'cracking {how_many} eggs')
     print('cooking the eggs ...')
-    sleep(3)
+    await asyncio.sleep(3)
     print('Put eggs on plate')
 
 
-def fry_bacon(slices: int):
+async def fry_bacon(slices: int):
     print(f'putting {slices} slices of bacon in the pan')
     print('cooking first side of bacon...')
-    sleep(3)
+    await asyncio.sleep(3)
     for _ in range(slices):
         print('flipping a slice of bacon')
     print('cooking the second side of bacon...')
-    sleep(3)
+    await asyncio.sleep(3)
     print('Put bacon on plate')
 
 
@@ -29,11 +30,11 @@ class Bread:
     def __init__(self, slices: int):
         self.slices = slices
 
-    def toast(self):
+    async def toast(self):
         for _ in range(self.slices):
             print('Putting a slice of bread in the toaster')
         print('Start toasting...')
-        sleep(3)
+        await asyncio.sleep(3)
         print('Remove toast from toaster')
 
     def apply_butter(self):
@@ -47,18 +48,18 @@ def pour_juice():
     print('Pouring orange juice')
 
 
-def main():
+async def main():
     pour_coffee()
     print("coffee is ready")
 
-    fry_eggs(2)
+    await fry_eggs(2)
     print('eggs are ready')
 
-    fry_bacon(3)
+    await fry_bacon(3)
     print('bacon is ready')
 
     toast = Bread(2)
-    toast.toast()
+    await toast.toast()
     toast.apply_butter()
     toast.apply_jam()
     print('toast is ready')
@@ -72,5 +73,7 @@ def main():
 if __name__ == "__main__":
     print("Coocking started.")
     start_time = monotonic()
-    main()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.close()
     print(f'It took {monotonic() - start_time} mins.')
