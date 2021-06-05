@@ -48,18 +48,21 @@ def pour_juice():
     print('Pouring orange juice')
 
 
-async def main():
+async def breakfast():
     pour_coffee()
     print("coffee is ready")
 
-    await fry_eggs(2)
+    egg_task = fry_eggs(2)
+    await egg_task
     print('eggs are ready')
 
-    await fry_bacon(3)
+    bacon_task =  fry_bacon(3)
+    await bacon_task
     print('bacon is ready')
 
     toast = Bread(2)
-    await toast.toast()
+    toast_task = toast.toast()
+    await toast_task
     toast.apply_butter()
     toast.apply_jam()
     print('toast is ready')
@@ -73,7 +76,8 @@ async def main():
 if __name__ == "__main__":
     print("Coocking started.")
     start_time = monotonic()
+    # two_breakfasts = asyncio.gather(breakfast(), breakfast())
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    loop.run_until_complete(breakfast())
     loop.close()
     print(f'It took {monotonic() - start_time} mins.')
